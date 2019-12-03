@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-startpatible" content="ie=edge">
+    <link rel="stylesheet" href="css/janken2.css">
+    <title>じゃんけんコイン</title>
+</head>
+
+<body>
+    <div class="introduction">
+        <h1>〇じゃんけんコイン●</h1>
+        <h2>Introduction</h2>
+        <h2>勝つとコインが1つ増えて、負けるとコインが１つ減る</h2>
+        <h3>‼コイン5つでゲームクリア‼</h3>
+    </div>
+
+    <div class="janken_box">
+        <div class="coin_area">
+            <table class="t_coin">
+                <tr>
+                    <td>
+                        <img id="coin1" src="img/gscoin.png">
+                    </td>
+                    <td>
+                        <img id="coin2" src="img/gscoin.png">
+                    </td>
+                    <td>
+                        <img id="coin3" src="img/gscoin.png">
+                    </td>
+                    <td>
+                        <img id="coin4" src="img/gscoin.png">
+                    </td>
+                    <td>
+                        <img id="coin5" src="img/Gscoin.png">
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="com_area">
+            <img id="comHand" src="img/gu.jpg"></img>
+
+            <div id="start">START</div>
+            <div id="result"></div>
+            <div id="oneMore">!One More!</div>
+        </div>
+
+        <div class="myHand">
+            <table class="t_myHand">
+                <tr>
+                    <td>
+                        <div id="gu">
+                            <img src="img/gu2.jpg">
+                        </div>
+                    </td>
+                    <td>
+                        <div id="choki">
+                            <img src="img/choki2.jpg">
+                        </div>
+                    </td>
+                    <td>
+                        <div id="pa">
+                            <img src="img/pa2.jpg">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="gameOver">GAME OVER</div>
+        <div id="clear">GAME CLEAR</div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        $(function () {
+            'use strict';
+
+            var comHand = document.getElementById('comHand');
+            var start = document.getElementById('start');
+            var gu = document.getElementById('gu');
+            var choki = document.getElementById('choki');
+            var pa = document.getElementById('pa');
+            var result = document.getElementById('result');
+            var oneMore = document.getElementById('oneMore');
+            var pa = document.getElementById('pa');
+            var gameOver = document.getElementById('gameOver');
+            var clear = document.getElementById('clear');
+
+            var coin1 = document.getElementById('coin1');
+            var coin2 = document.getElementById('coin2');
+            var coin3 = document.getElementById('coin3');
+            var coin4 = document.getElementById('coin4');
+            var coin5 = document.getElementById('coin5');
+
+            var coinNum = 3;
+            var comNum;
+            var isStarted;
+
+
+            // 最初コインは3枚
+            // コイン4・5は非表示
+            coin4.className = 'hidden';
+            coin5.className = 'hidden';
+            // coinNum = 2;
+
+            // スタートボタンを押されているか
+            // 押してない＝false
+            isStarted = false;
+
+            // スタートボタンが押されたらスロットスタート
+            start.addEventListener('click', function () {
+                startSlot();
+            }, false);
+
+            // もう一度が押されたらスロットスタート
+            oneMore.addEventListener('click', function () {
+                startSlot()
+            }, false);
+
+            // もう一度が押されたらリセット
+            oneMore.addEventListener('click', function () {
+                reset();
+            }, false);
+
+            // グー・チョキ・パーボタンを押したらスタート、それ以外は1false
+            gu.addEventListener('click', function () {
+                guFunc();
+            }, false);
+            gu.addEventListener('click', function () {
+                btnFunc(0);
+            }, false);
+            console.log('ok');
+            choki.addEventListener('click', function () {
+                chokiFunc();
+            }, false);
+            choki.addEventListener('click', function () {
+                btnFunc(1);
+            }, false);
+            pa.addEventListener('click', function () {
+                paFunc();
+            }, false);
+            pa.addEventListener('click', function () {
+                btnFunc(2);
+            }, false);
+
+            reset();
+            function coinState() {
+                if (coinNum <= 0) {
+                    coinNum = 0;
+                    gameOver.className = 'active';
+                    oneMore.textContent = 'REPLAY';
+                    oneMore.addEventListener('click', function () {
+                        location.reload();
+                    })
+                } else if (coinNum >= 5) {
+                    clear.className = 'active';
+                    oneMore.textContent = 'active';
+                    oneMore.addEventListener('click', function () {
+                        location.reload();
+                    })
+                }
+                switch (coinNum) {
+                    case 0:
+                        coin1.className = 'hidden';
+                        coin2.className = 'hidden';
+                        coin3.className = 'hidden';
+                        coin4.className = 'hidden';
+                        coin5.className = 'hidden';
+                        break;
+                    case 1:
+                        coin1.className = 'block';
+                        coin2.className = 'hidden';
+                        coin3.className = 'hidden';
+                        coin4.className = 'hidden';
+                        coin5.className = 'hidden';
+                        break;
+                    case 2:
+                        coin1.className = 'block';
+                        coin2.className = 'block';
+                        coin3.className = 'hidden';
+                        coin4.className = 'hidden';
+                        coin5.className = 'hidden';
+                        break;
+                    case 3:
+                        coin1.className = 'block';
+                        coin2.className = 'block';
+                        coin3.className = 'block';
+                        coin4.className = 'hidden';
+                        coin5.className = 'hidden';
+                        break;
+                    case 4:
+                        coin1.className = 'block';
+                        coin2.className = 'block';
+                        coin3.className = 'block';
+                        coin4.className = 'block';
+                        coin5.className = 'hidden';
+                        break;
+                    case 5:
+                        coin1.className = 'block';
+                        coin2.className = 'block';
+                        coin3.className = 'block';
+                        coin4.className = 'block';
+                        coin5.className = 'block';
+                        break;
+                }
+
+            }
+
+            function reset() {
+                result.className = 'hidden';
+                oneMore.className = 'hidden';
+                gu.className = 'no-push';
+                choki.className = 'no-push';
+                pa.className = 'no-push';
+                gameOver.className = 'hidden';
+                clear.className = 'hidden';
+            }
+
+            function btnFunc(hand) {
+                if (isStarted === false) {
+                    return;
+                }
+                console.log(this);
+                if (hand == 0) {
+                    gu.className = 'pushed';
+                } else if (hand == 1) {
+                    choki.className = 'pushed';
+                } else if (hand == 2) {
+                    pa.className = 'pushed';
+                }
+                // this.className = 'pushed';
+                oneMore.className = 'active';
+                isStarted = false;
+                setTimeout(coinState, 200);
+            }
+
+            var id;
+
+
+            function start() {
+                // id;
+
+            }
+
+
+            function startSlot() {
+                id = setInterval(() => {
+                    isStarted = true;
+                    start.className = 'hidden';
+
+
+                    comNum = Math.floor(Math.random() * 3);
+                    console.log(comNum);
+                    switch (comNum) {
+                        case 0:
+                            comHand.src = "img/gu.jpg";
+                            break;
+                        case 1:
+                            comHand.src = "img/choki.jpg";
+                            break;
+                        case 2:
+                            comHand.src = "img/pa.jpg";
+                            break;
+                    }
+                }, 1);
+            }
+
+            function stopSlot() {
+                clearInterval(id);
+                console.log('stop');
+            }
+
+            gu.addEventListener('click', function () {
+                stopSlot();
+            }, false);
+            choki.addEventListener('click', function () {
+                stopSlot();
+            }, false);
+            pa.addEventListener('click', function () {
+                stopSlot();
+            }, false);
+
+
+            function guFunc() {
+                if (isStarted === false) {
+                    return;
+                }
+                if (comNum === 0) {
+                    drawFunc();
+                } else if (comNum === 1) {
+                    winFunc();
+                } else {
+                    loseFunc();
+                }
+            }
+
+            function chokiFunc() {
+                if (isStarted === false) {
+                    return;
+                }
+                if (comNum === 0) {
+                    loseFunc();
+                } else if (comNum === 1) {
+                    drawFunc();
+                } else {
+                    winFunc();
+                }
+            }
+
+            function paFunc() {
+                if (isStarted === false) {
+                    return;
+                }
+                if (comNum === 0) {
+                    winFunc();
+                } else if (comNum === 1) {
+                    loseFunc();
+                } else {
+                    drawFunc();
+                }
+            }
+
+            function winFunc() {
+                result.className = 'active';
+                result.textContent = 'WIN';
+                coinNum++;
+            }
+
+            function loseFunc() {
+                result.className = 'active';
+                result.textContent = 'LOSE';
+                coinNum--;
+            }
+
+            function drawFunc() {
+                result.className = 'active';
+                result.textContent = 'DRAW';
+            }
+        })    
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+body{
+    background: rgb(156, 156, 156)
+}
+
+.introduction{
+    text-align: center;
+    color: whitesmoke;
+}
+
+.janken_box{
+    position: relative;
+    margin:0 auto;
+    width:80%;
+    text-align:center;
+}
+
+.janken_box *{
+    text-align:center;
+    box-sizing:border-box;
+    margin: 0 auto;
+}
+
+.janken_box table{
+    table-layout: fixed;
+    text-align: center;
+    border: none;
+}
+
+.janken_box td{
+    border:none;
+}
+
+.coin_area{
+    background: rgb(95, 89, 107);
+    height:110px;
+    border-radius: 30px;
+}
+
+.t_coin{
+    widows: 100%
+    
+}
+
+.t_coin img{
+    max-width: 87px;
+    width: auto;   
+}
+
+.com_area{
+    margin:20px auto;
+    border: 1px solid rgb(157, 154, 163);
+    box-sizing: border-box;
+    position: relative;
+    width: 80%;
+    border-radius:30px;
+}
+
+.com_area img{
+    width:100%;
+}
+
+.t_myHand{
+    margin-top: 20px;
+}
+
+.t_myHand td{
+    vertical-align: top;
+    text-align: center;
+}
+
+
+.no-push{
+    border-radius: 100%;
+    width: 80%;
+}
+
+.pushed{
+    border-radius: 100%;
+    margin-top: 10px;
+    width:80%;
+}
+
+.pushed img{
+    width:100%;
+}
+
+#start{
+    position: absolute;
+    top: 0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    height:200px;
+    width: 200px;
+    background:#9cc9fd;
+    line-height:200px;
+    font-weight:bold;
+    font-size: 20px;
+    opacity:0.8;
+    color:#fff;
+}
+
+#result{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    margin: auto;
+    width: 100%;
+    background: #fff;
+    height:100px;
+    background: rgb(75, 76, 80);
+    opacity: 0.6;
+    line-height:100px;
+    color: #fff;
+    font-size: 25px;
+}
+
+#oneMore{
+    position: absolute;
+    top: 350px;
+    left: 0;
+    right:0;
+    bottom:0;
+    margin: auto;
+    height: 150px;
+    width:150px;
+    background: orange;
+    line-height: 150px;
+    font-weight: bold;
+    font-size: 20px;
+    color:#fff;
+    opacity: 0.8;
+}
+
+#oneMore:hover{
+    opacity: 0.4;
+}
+
+.active{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
+#gameOver,#clear{
+    position: absolute;
+    width: 80%;
+    height: 100px;
+    top:10px;
+    z-index: 10;
+    font-size: 30px;
+    color: #fff;
+    line-height: 100px;
+    font-weight: bold;
+    opacity: 0.8;
+    border-radius: 20px;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+
+#clear{
+    background: rgb(0,59,252);
+}
+
+#gameOver{
+    background: rgb(252,0,0);
+}
